@@ -1,6 +1,11 @@
 from sys import stdin
 import operator
 
+#Juan Sebastian Rivera - 5498445
+#Codigo (LIS) tomado del repositorio del profesor Camilo Rocha (https://bitbucket.org/snippets/hquilo/nrodL/lis-in-quadratic-time-with-memoization)
+#Modificado segun lo discutido en la clase para la solucion del problema
+#Problema discutido con Juan Sebastian Quiceno y Maria Paula Carrero
+
 bloques = []
 
 def cBloques(x,y,z):
@@ -17,9 +22,9 @@ def aux_memoization(a,n,memo):
   if ans==None:
     ans = 0
     for i in range(n):
-      if a[i][0]>a[n][0] and a[i][1]>a[n][1] :
+      if a[i][0]>a[n][0] and a[i][1]>a[n][1] : #Modificado aqui para verificar tanto X como Y, que ambas deben ser estrictamente mayores que el siguiente
         ans = max(ans,aux_memoization(a,i,memo))
-    ans += a[n][2]
+    ans += a[n][2] #Modificado aqui para no sumar 1 si no modificar el Z
     memo[n] = ans
   return ans
 
@@ -45,7 +50,7 @@ def main():
 			x,y,z = [ int(k) for k in j.split() ]
 			cBloques(x,y,z)
 			contador = contador + 1
-		bloques.sort(key = operator.itemgetter(0, 1),reverse=True)
+		bloques.sort(key = operator.itemgetter(0, 1),reverse=True) #Ordenar la lista aqui para enviarla al LIS, se ordena de mayor a menor primero por X y luego por Y
 		if int(l) != 0:
 			print("Case {}: maximum height = {}".format(case,lis_memoization(bloques)))
 			case = case + 1
