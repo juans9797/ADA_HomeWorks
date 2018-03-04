@@ -10,13 +10,14 @@ def solve(n,m,v):
 	for i in v:
 		hi = hi + i
 
+	max1 = max(v)
 	while low <= hi:
 		cont = 0
 		acc = 0
 		acc2 = 0
 		mid = low+((hi-low)//2)
 		while cont < n:
-			if (mid < max(v)):
+			if (mid < max1):
 				acc2 = m + 1
 				cont = n
 			elif acc + v[cont] > mid:
