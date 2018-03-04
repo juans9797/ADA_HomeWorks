@@ -31,12 +31,14 @@ def solve(l):
 
 
 def main():
-	l='1'
-	while(l!=''):
+	cases = stdin.readline().strip()
+	cont = 0
+	while cont <= int(cases):
 		l = stdin.readline().strip()
 		n = list(l)
 		if(l!=''):
 			print(solve(n))	
+		cont = cont + 1
 
 
 main()
