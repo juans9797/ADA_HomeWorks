@@ -2,6 +2,7 @@ from sys import stdin
 
 #Nombre: Juan Sebastian Rivera
 #Codigo de estudiante: 5498845
+#Discutido con: Maria Paula Carrero
 
 def verificar(l):
 	it = 0
