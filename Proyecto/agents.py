@@ -1,21 +1,33 @@
 from sys import stdin
 #Nombre: Juan Sebastian Rivera
 #Codigo de estudiante: 5498445
+#Codigo de Honor:
+#Como miembro de la comunidad académica de la Pontificia Universidad Javeriana Cali me comprometo
+#a seguir los más altos estándares de integridad académica.
+
 matrix, numH, conver, already, name = None,None,None,None,None
 
 def isVariable(a):
+	#Verifica si la variable a que ingreso, esta dentro del ASCII de las
+	#Mayusculas
 	if(ord(a)>=65 and ord(a)<= 90):
 		return True
 	else:
 		return False
 
+
 def isLowerCase(a):
+	#Verifica si la variable a que ingreso, esta dentro del ASCII de las
+	#Minuscilas
 	if(ord(a)>=97 and ord(a)<=122):
 		return True
 	else:
 		return False
 
 def makeString(a):
+	#Ingresa un arreglo a, en del cual se quieren convertir en strings,
+	#La idea es convertir cada uno de los elementos del arreglo
+	#En Strings individuales
 	cont = 0
 	string = ''
 	l = ''
@@ -38,6 +50,7 @@ def makeString(a):
 
 
 def solve():
+	#Verifica si es una funcion y si son iguales los parsea
 	global matrix,numH,conver,already
 	listaParejas = list()
 	already = list()
@@ -64,6 +77,10 @@ def solve():
 	solve2(listaParejas)
 
 def solve2(listaParejas):
+	#Va realizando cambios de las parejas de variables, de los parseos
+	#A una lista de conversion, si se logra eliminar todas las parejas
+	#De la lista de parseo, entonces es porque se pudo mapear de tal 
+	#manera que todos los hashes queden iguales
 	global conver,already
 	i = 0
 	while(i !=len(listaParejas)):
@@ -84,6 +101,7 @@ def solve2(listaParejas):
 
 		
 def main():
+	#Realiza las entradas y envia a la funcion solve
 	global matrix,numH,conver,name
 	line = stdin.readline().strip().split()
 	while(line[0] != "END"):
