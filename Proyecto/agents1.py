@@ -7,44 +7,92 @@ from sys import stdin
 
 matrix,numH,conver,name = None,None,None,None
 
-def parser():
-	global matrix,numH
-	for i in matrix:
-		name = ""
-		temp = list()
-		stack = list()
-		cont = 0
-		for j in i:
-			if j == '(':
-				cont = cont + 1
+def parser(i):
+	name = ""
+	temp = list()
+	stack = list()
+	for j in i:
+		if j == '(':
+			if len(stack)==0:
 				temp.append(name)
-				name = ""
 				stack.append(temp)
+				stack.append([])
+				name = ""
 				temp = list()
-			elif j == ')':
-				if name != "" and len(stack) >= 2:
-					var = stack.pop()
-					var.append(name)
-					var1 = stack.pop()
-					var1.append(var)
-					stack.append(var1)
-					name = ""
-					cont = cont - 1
-				elif name != "":
-					var = stack.pop()
-					var.append(name)
-					stack.append(var)
-					name = ""
-					cont = cont - 1
-			elif j == ',':
-				if name != "":
-					var = stack.pop()
-					var.append(name)
-					stack.append(var)
-					name = ""
-			else:
-				name = name+j
-		print(stack)
+			elif len(stack) >= 1:
+				var = stack.pop()
+				var.append(name)
+				stack.append(var)
+				stack.append([])
+				name = ""
+		elif j == ')':
+			if name != "":
+				var = stack.pop()
+				var.append(name)
+				stack.append(var)
+				name = ""
+			elif name == "":
+				var = stack.pop()
+				var1 = stack.pop()
+				var1.append(var)
+				stack.append(var1)
+				name = ""
+		elif j == ',':
+			if len(stack) == 0 and name != "":
+				temp.append(name)
+				stack.append(temp)
+				name = ""
+				temp = list()
+			elif len(stack)>=1 and name != "":
+				var = stack.pop()
+				var.append(name)
+				stack.append(var)
+				name = ""
+		else:
+			name = name + j
+	while len(stack)>=2:
+		var = stack.pop()
+		var1 = stack.pop()
+		var1.append(var)
+		stack.append(var1)
+	if name != "":
+		var = stack.pop()
+		var.append(name)
+		name = ""
+		stack.append(var)
+
+	print(stack)
+
+
+def solve():
+	global matrix
+	l = len(matrix)
+	for i in range(l-1):
+		var1 = parser(matrix[i])
+		var2 = parser(matrix[i+1])
+		#print(var1,var2)
+		#solve2(var1,var2)
+
+
+def solve2(var1,var2):
+	l = len(var1)
+	for i in range(l):
+		if isinstance(var1[i],list):
+			pass
+			#print(var1[i])
+		elif isVariable(var1[i]):
+			pass
+			#print(var1[i])
+
+
+def isVariable(a):
+	#Verifica si la variable a que ingreso, esta dentro del ASCII de las
+	#Mayusculas
+	a = list(a)
+	if(ord(a[0])>=65 and ord(a[0])<= 90):
+		return True
+	else:
+		return False
 
 
 		
@@ -60,7 +108,7 @@ def main():
 		for _ in range(numH):
 			lista = stdin.readline().strip()
 			matrix.append(list(lista))
-		parser()
+		solve()
 		line = stdin.readline().strip().split()
 
 
