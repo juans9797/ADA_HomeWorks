@@ -79,31 +79,28 @@ def solve():
 
 
 def solve2(var1,var2):
+	global conver
 	l = min(len(var1),len(var2))
-	print(l)
-	for i in range(l-1):
-		#-------------AQUI TOCA REVISAR EL RANGO-------------------#
-		print(i)
-		if isVariable(var1[i]):
-			print("--Entro")
-			if not isVariable(var2[i]) and isinstance(var2[i+1],list):
+	for i in range(l):
+		if isVariable(var1[i]) and not isinstance(var1[i],list):
+			if len(var2)-i >= 2 and not isVariable(var2[i]) and isinstance(var2[i+1],list):
 				var3 = var1[i]
-				print("Entro")
 				for j in var2[i+1]:
 					if isinstance(j,list):
 						if var3 == j:
-							print("Se exploto")
 							return False
-						else:
-							return True
 					else:
 						if var3 == j:
 							return False
-						else:
-							return True
+			
+			if var1[i] in conver:
+				if isVariable(conver[var1[i]]):
+					print("Si es otra variable")
+				else:
+					return False
 
 
-		elif not isVariable(var1[i]) and isinstance(var1[i+1],list):
+		elif len(var2)-i >= 2 and not isVariable(var1[i]) and isinstance(var1[i+1],list):
 			if not isVariable(var2[i]) and isinstance(var2[i+1],list):
 				if var1[i] != var2[i]:
 					return False
@@ -111,7 +108,7 @@ def solve2(var1,var2):
 					print("Aqui toca hacer algo")
 			else:
 				return False
-		elif not isVariable(var1[i]) and not isinstance(var1[i+1],list):
+		elif len(var2)-i >= 2 and not isVariable(var1[i]) and not isinstance(var1[i+1],list):
 			if var1[i]==var2[i]:
 				print("Si")
 			else:
@@ -143,6 +140,7 @@ def main():
 		for _ in range(numH):
 			lista = stdin.readline().strip()
 			matrix.append(list(lista))
+		conver = {}
 		solve()
 		line = stdin.readline().strip().split()
 

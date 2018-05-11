@@ -1,6 +1,6 @@
 r2d2 3
 X
-f(X,g(c))
+f(Y,g(c))
 f(c,g(Y,d))
 c3po 2
 f(X,g(c))
