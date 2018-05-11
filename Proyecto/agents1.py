@@ -29,14 +29,15 @@ def parser(i):
 			if name != "":
 				var = stack.pop()
 				var.append(name)
-				stack.append(var)
+				var1 = stack.pop()
+				var1.append(var)
+				stack.append(var1)
 				name = ""
 			elif name == "":
 				var = stack.pop()
 				var1 = stack.pop()
 				var1.append(var)
 				stack.append(var1)
-				name = ""
 		elif j == ',':
 			if len(stack) == 0 and name != "":
 				temp.append(name)
@@ -61,7 +62,7 @@ def parser(i):
 		name = ""
 		stack.append(var)
 
-	print(stack)
+	return stack.pop()
 
 
 def solve():
@@ -70,19 +71,18 @@ def solve():
 	for i in range(l-1):
 		var1 = parser(matrix[i])
 		var2 = parser(matrix[i+1])
-		#print(var1,var2)
-		#solve2(var1,var2)
+		print(var1,var2)
+		solve2(var1,var2)
 
 
 def solve2(var1,var2):
 	l = len(var1)
-	for i in range(l):
-		if isinstance(var1[i],list):
-			pass
+	for i in range(l-1):
+		if isVariable(var1[i]):
+			print("Variable")
 			#print(var1[i])
-		elif isVariable(var1[i]):
-			pass
-			#print(var1[i])
+		elif not isVariable(var1[i]) and isinstance(var1[i+1],list):
+			print("Funcion")
 
 
 def isVariable(a):
@@ -93,6 +93,8 @@ def isVariable(a):
 		return True
 	else:
 		return False
+
+
 
 
 		
